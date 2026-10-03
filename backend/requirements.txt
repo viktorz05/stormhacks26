@@ -1,0 +1,11 @@
+fastapi[standard]
+elevenlabs
+google-ai-generativelanguage==0.6.2
+google-api-core==2.19.0
+google-api-python-client==2.127.0
+google-auth==2.29.0
+google-auth-httplib2==0.2.0
+google-genai==1.10.0
+python-dotenv==1.2.2
+requests==2.34.2
+urllib3==2.7.0
