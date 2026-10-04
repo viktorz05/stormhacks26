@@ -3,7 +3,7 @@ import json
 import base64
 import websockets
 from typing import AsyncGenerator
-from app.config import settings
+from config import settings
 
 class ElevenLabsStreamer:
     def __init__(self, voice_id: str = settings.DEFAULT_VOICE_ID):
@@ -16,7 +16,7 @@ class ElevenLabsStreamer:
     async def stream_text_to_audio(self, text_stream: AsyncGenerator[str, None]) -> AsyncGenerator[bytes, None]:
         headers = {"xi-api-key": settings.ELEVENLABS_API_KEY}
         
-        async with websockets.connect(self.uri, extra_headers=headers) as el_ws:
+        async with websockets.connect(self.uri, additional_headers=headers) as el_ws:
             # 1. Send Initial Handshake Frame
             bos_message = {
                 "text": " ",

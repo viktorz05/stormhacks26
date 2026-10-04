@@ -1,7 +1,7 @@
 import asyncio
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from app.services.elevenlabs_client import ElevenLabsStreamer
-from app.websockets.audio_stream import handle_audio_stream
+from services.elevenlabs_client import ElevenLabsStreamer
+from sockets.audio_stream import handle_audio_stream
 
 app = FastAPI(title="WakeUp Call Orchestrator")
 
@@ -14,21 +14,23 @@ async def health_check():
 # ---------------------------------------------------------
 @app.websocket("/ws/echo")
 async def websocket_audio_echo(websocket: WebSocket):
-    """
-    Receives raw audio (binary bytes or text frames) from client
-    and echoes it straight back to verify stream connection.
-    """
     await websocket.accept()
     print("[Echo WS] Client connected.")
     try:
         while True:
-            # Accepts binary PCM audio chunks or string frames
             message = await websocket.receive()
+            
+            # Explicitly break the loop if the client disconnects
+            if message.get("type") == "websocket.disconnect":
+                break
+                
             if "bytes" in message:
                 await websocket.send_bytes(message["bytes"])
             elif "text" in message:
                 await websocket.send_text(f"Echo: {message['text']}")
     except WebSocketDisconnect:
+        pass
+    finally:
         print("[Echo WS] Client disconnected.")
 
 # ---------------------------------------------------------
@@ -78,3 +80,7 @@ async def websocket_full_stream(websocket: WebSocket, session_id: str):
     Gemini (pending), and ElevenLabs text-to-speech.
     """
     await handle_audio_stream(websocket, session_id)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
