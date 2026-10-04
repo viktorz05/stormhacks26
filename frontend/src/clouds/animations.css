@@ -1,0 +1,301 @@
+/*ALL OF THIS WAS EXTRACTED FROM react-cloud-animation A MODULE MADE BY ANOTHER PERSON*/
+
+/* Z-Index Structure:
+   - Original background: z-index 0 (default)
+   - Sky background: z-index 10
+   - Component tiles: z-index 20
+   - Clouds: z-index 30
+   - Navbar: z-index 40 (to stay on top)
+*/
+
+#background-wrap {
+  bottom: 0;
+  left: 0;
+  padding-top: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+  transition: background-color 0.8s ease;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+
+.cloud-container {
+  position: absolute;
+  z-index: 30;
+  pointer-events: none;
+  white-space: nowrap;
+  width: 80%;
+}
+
+.cloud-img {
+  width: 400px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+/* Continuous marquee animations for clouds */
+@keyframes marqueeLeftToRight {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes marqueeRightToLeft {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Cloud positions and animations - continuous marquee effect */
+.x1 {
+  top: 0%;
+  animation: marqueeRightToLeft 40s linear infinite;
+}
+
+.x2 {
+  top: 15%;
+  transform: scale(0.6);
+  opacity: 0.9;
+  animation: marqueeLeftToRight 45s linear infinite;
+}
+
+.x3 {
+  top: 2%;
+  transform: scale(0.8);
+  opacity: 0.8;
+  animation: marqueeRightToLeft 50s linear infinite;
+}
+
+.x4 {
+  top: 18%;
+  transform: scale(0.75);
+  opacity: 0.75;
+  animation: marqueeLeftToRight 55s linear infinite;
+}
+
+.x5 {
+  top: 20%;
+  transform: scale(0.7);
+  opacity: 0.8;
+  animation: marqueeRightToLeft 60s linear infinite;
+}
+
+/* Light theme cloud styles */
+.light .cloud-img {
+  filter: brightness(1.1);
+  opacity: 0.7;
+}
+
+/* Dark theme cloud styles */
+.dark .cloud-img {
+  filter: brightness(0.9) hue-rotate(240deg);
+  opacity: 0.6;
+}
+
+/* Dusk theme cloud styles */
+.dusk .cloud-img {
+  filter: brightness(0.7) hue-rotate(320deg);
+  opacity: 0.6;
+}
+
+/* Animation start state */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fadeout animation for cloud background */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+#background-wrap {
+  animation: fadeIn 1s ease-in;
+}
+
+/* Fadeout animation class */
+.animate-fadeout {
+  animation: fadeOut 1s ease-out forwards;
+}
+
+/* Theme toggle styles */
+.theme-toggle-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: colors 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.theme-toggle-icon-container {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-icon {
+  position: absolute;
+  transition: all 0.3s;
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Optional: Glow animations for interactive elements */
+@keyframes subtleGlow {
+  0%, 100% { 
+    text-shadow: 0 0 4px rgba(135, 206, 235, 0.4), 0 0 8px rgba(135, 206, 235, 0.2);
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 8px rgba(135, 206, 235, 0.6), 0 0 16px rgba(135, 206, 235, 0.3);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes prominentGlow {
+  0%, 100% { 
+    text-shadow: 0 0 6px rgba(135, 206, 235, 0.5), 0 0 12px rgba(135, 206, 235, 0.3);
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 12px rgba(135, 206, 235, 0.8), 0 0 24px rgba(135, 206, 235, 0.4);
+    transform: scale(1.08);
+  }
+}
+
+.animate-subtle-glow {
+  animation: subtleGlow 2s ease-in-out infinite;
+  color: #87CEEB;
+  cursor: pointer;
+  position: relative;
+}
+
+.animate-prominent-glow {
+  animation: prominentGlow 2s ease-in-out infinite;
+  color: #87CEEB;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Dark theme version */
+.dark .animate-subtle-glow,
+.dark .animate-prominent-glow {
+  color: #87CEEB;
+}
+
+/* Light theme version */
+.light .animate-subtle-glow,
+.light .animate-prominent-glow {
+  color: #4682B4;
+}
+
+/* Dusk theme version */
+.dusk .animate-subtle-glow,
+.dusk .animate-prominent-glow {
+  color: #9370DB;
+}
+
+/* Cloud Toggle Button Animations */
+@keyframes cloudToggleGlow {
+  0%, 100% { 
+    text-shadow: 0 0 8px rgba(135, 206, 235, 0.6), 0 0 16px rgba(135, 206, 235, 0.3);
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 16px rgba(135, 206, 235, 0.9), 0 0 32px rgba(135, 206, 235, 0.5);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bounceIndicator {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-8px) scale(1.1);
+  }
+  60% {
+    transform: translateY(-4px) scale(1.05);
+  }
+}
+
+@keyframes bounceArrowDelayed {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+  40% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(-3px);
+    opacity: 0.9;
+  }
+}
+
+.cloud-toggle-glow {
+  animation: cloudToggleGlow 2.5s ease-in-out infinite;
+  cursor: pointer;
+  position: relative;
+}
+
+.cloud-toggle-indicator {
+  position: relative;
+}
+
+.cloud-toggle-indicator::after {
+  content: '👆';
+  position: absolute;
+  top: -2rem;
+  right: -1.5rem;
+  font-size: 1rem;
+  animation-delay: 1s;
+  animation: bounceArrowDelayed 1.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Theme-specific cloud toggle colors */
+.light .cloud-toggle-glow {
+  color: #4682B4;
+}
+
+.light .cloud-toggle-glow:hover {
+  color: #87CEEB;
+}
+
+.dark .cloud-toggle-glow {
+  color: #87CEEB;
+}
+
+.dark .cloud-toggle-glow:hover {
+  color: #B0E0E6;
+}
+
+.dusk .cloud-toggle-glow {
+  color: #9370DB;
+}
+
+.dusk .cloud-toggle-glow:hover {
+  color: #d2c4f4;
+}
+
+/* Responsive adjustments for cloud toggle */
+@media (max-width: 768px) {
+  .cloud-toggle-indicator::after {
+    font-size: 0.875rem;
+    top: -1.75rem;
+    right: -1.25rem;
+  }
+}
