@@ -6,18 +6,22 @@ readme = "README.md"
 authors = [
     { name = "Viktor Zepeda", email = "vza12@sfu.ca" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.12, < 3.14"
 dependencies = [
+    "cv>=1.0.0",
     "elevenlabs>=2.70.0",
     "fastapi[standard]>=0.141.1",
     "google-ai-generativelanguage==0.6.2",
-    "google-api-core==2.19.0",
+    "google-api-core>=2.25",
     "google-api-python-client==2.127.0",
     "google-auth==2.29.0",
     "google-auth-httplib2==0.2.0",
     "google-genai==1.10.0",
+    "numpy>=2.5.3",
+    "opencv-python>=5.0.0.93",
     "python-dotenv==1.2.2",
     "requests==2.34.2",
+    "ultralytics>=8.4.172",
     "urllib3==2.7.0",
 ]
 
