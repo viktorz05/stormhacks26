@@ -7,5 +7,4 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
-print("Hellow qworld!")
 settings = Settings()
