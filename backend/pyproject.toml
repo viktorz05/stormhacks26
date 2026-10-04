@@ -16,6 +16,7 @@ dependencies = [
     "google-auth==2.29.0",
     "google-auth-httplib2==0.2.0",
     "google-genai==1.10.0",
+    "pydantic>=2.13.5",
     "python-dotenv==1.2.2",
     "requests==2.34.2",
     "urllib3==2.7.0",
