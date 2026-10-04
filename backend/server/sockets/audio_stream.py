@@ -2,7 +2,7 @@ import asyncio
 import json
 from dataclasses import dataclass
 from fastapi import WebSocket, WebSocketDisconnect
-from app.services.elevenlabs_client import ElevenLabsStreamer #[cite: 1, 3]
+from services.elevenlabs_client import ElevenLabsStreamer #[cite: 1, 3]
 
 @dataclass
 class SessionState:
@@ -30,18 +30,25 @@ async def handle_audio_stream(websocket: WebSocket, session_id: str):
     streamer = ElevenLabsStreamer() #[cite: 1]
 
     # Task 1: Listen to the client asynchronously
+
     async def receive_from_client():
         try:
             while True:
                 message = await websocket.receive()
+                
+                # Explicitly handle client disconnects
+                if message.get("type") == "websocket.disconnect":
+                    break
+                    
                 if "bytes" in message:
-                    # Client to Server: Receiving raw 16kHz PCM integer audio chunks
                     await client_audio_queue.put(message["bytes"])
                 elif "text" in message:
                     data = json.loads(message["text"])
                     if data.get("event") == "stop_alarm":
                         session.is_alarm_active = False
         except WebSocketDisconnect:
+            pass
+        finally:
             print(f"[Orchestrator] Client {session_id} disconnected.")
 
     # Task 2: External API pipeline (LLM -> TTS)
