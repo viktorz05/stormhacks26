@@ -1,6 +1,6 @@
 "use client";
 
-import { AlarmClock, BellOff, Menu, Play } from "lucide-react";
+import { AlarmClock, BellOff, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { ChallengeSelector } from "@/components/challenge-selector";
@@ -60,7 +60,6 @@ export function HomeView({
   onPersonaChange,
   challenges,
   onChallengesChange,
-  points,
   fireAt,
   onArm,
   onDisarm,
@@ -85,28 +84,8 @@ export function HomeView({
 
   return (
     <div className="mx-auto flex h-full w-full max-w-md flex-col">
-      <header className="flex items-center justify-between px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-2">
-        <Button
-          variant="ghost"
-          size="icon-lg"
-          className="relative rounded-full hover:bg-white/10"
-          aria-label="Menu"
-        >
-          <Menu className="size-6" />
-          <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500 ring-2 ring-white/20" />
-        </Button>
-        <div
-          className="glass-light flex items-center gap-1.5 rounded-full py-1 pr-3 pl-1"
-          aria-label={`${points} points`}
-        >
-          <span className="grid size-6 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff1a8,#f5c242_55%,#d99a1e)] shadow-[inset_0_-2px_0_rgb(160_100_10/0.5)]">
-            <span className="size-2.5 rounded-full border-2 border-amber-700/50" />
-          </span>
-          <span className="text-base font-semibold tabular-nums">{points}</span>
-        </div>
-      </header>
 
-      <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-4">
+      <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-4 pt-10">
         <section className="flex flex-col items-center pt-2">
           <TerrariumBubble
             day={day}

@@ -31,7 +31,6 @@ export function WakeUpApp() {
   const [persona, setPersona] = useState<PersonaId>("drill-sergeant");
   const [challenges, setChallenges] = useState<ChallengeId[]>(["show-item"]);
   // Placeholder until points come from the backend.
-  const [points] = useState(596);
   const [fireAt, setFireAt] = useState<number | null>(null);
   const [pcmChunks, setPcmChunks] = useState(0);
   const [verifyOpen, setVerifyOpen] = useState(false);
@@ -151,7 +150,6 @@ export function WakeUpApp() {
               onPersonaChange={setPersona}
               challenges={challenges}
               onChallengesChange={setChallenges}
-              points={points}
               fireAt={fireAt}
               onArm={arm}
               onDisarm={disarm}
