@@ -1,6 +1,7 @@
 import asyncio
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from app.services.elevenlabs_client import ElevenLabsStreamer
+from app.websockets.audio_stream import handle_audio_stream
 
 app = FastAPI(title="WakeUp Call Orchestrator")
 
@@ -69,3 +70,11 @@ async def websocket_tts_test(websocket: WebSocket):
     except Exception as e:
         print(f"[TTS Test Error] {e}")
         await websocket.close()
+
+@app.websocket("/ws/stream/{session_id}")
+async def websocket_full_stream(websocket: WebSocket, session_id: str):
+    """
+    Main duplex orchestrator connecting client mic, session state, 
+    Gemini (pending), and ElevenLabs text-to-speech.
+    """
+    await handle_audio_stream(websocket, session_id)
